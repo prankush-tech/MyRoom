@@ -47,7 +47,7 @@ const [maxDistance, setMaxDistance] = useState(
         dampingFactor={0.04}
         makeDefault={true}
         maxDistance={maxDistance}
-        minDistance={20}
+        minDistance={30}
       />
       {/* <pointLight position={[10, 10, 10]} intensity={10} color={"red"} /> */}
       {/* <axesHelper args={[100]} /> */}
