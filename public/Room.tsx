@@ -15,7 +15,7 @@ type GLTFResult = GLTF & {
     keyBoard_Buttons: THREE.Mesh
   }
   materials: {}
-  animations: GLTFAction[]
+  // animations: GLTFAction[]
 }
 
 export function Model(props: JSX.IntrinsicElements['group']) {
