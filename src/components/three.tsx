@@ -9,8 +9,10 @@ import { editable as e, SheetProvider } from "@theatre/r3f";
 import { OrbitControls } from "@react-three/drei";
 import { Model } from "./Room/Room";
 import { Canvas } from "@react-three/fiber";
-import Video from "./Room/Video";
+import Video from "./Room/VideoTV";
 import Poster from "./Room/Poster";
+import VideoTV from "./Room/VideoTV";
+import VideoLaptop from "./Room/VideoLaptop";
 
 // const demoSheet = getProject("Demo Project").sheet("Demo Sheet");
 
@@ -29,9 +31,6 @@ const [maxDistance, setMaxDistance] = useState(
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // studio.initialize();
-  // studio.extend(extension);
-
   return (
     <Canvas
       camera={{
@@ -49,17 +48,17 @@ const [maxDistance, setMaxDistance] = useState(
         dampingFactor={0.04}
         makeDefault={true}
         maxDistance={maxDistance}
-        minDistance={30}
+        minDistance={25}
       />
       {/* <pointLight position={[10, 10, 10]} intensity={10} color={"red"} /> */}
       {/* <axesHelper args={[100]} /> */}
       <ambientLight intensity={Math.PI * 1.5} />
-      {/* <Plane position={[0, 0, 0]}  /> */}
-      {/* <SheetProvider sheet={demoSheet}>
-      </SheetProvider> */}
-      <Video/>
-      <Poster/>
+
       <Model />
+      <VideoLaptop/>
+      <VideoTV/>
+      <Poster/>
+      
     </Canvas>
   );
 };

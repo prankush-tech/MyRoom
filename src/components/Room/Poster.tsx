@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { useControls } from 'leva'
-import { useTexture } from '@react-three/drei'
+import { useTexture, useVideoTexture } from '@react-three/drei'
 
 const Poster = () => {
 
@@ -9,37 +9,9 @@ const Poster = () => {
   const ref = useRef<THREE.Mesh>(null)
 
 
-
-    useControls({
-        PosterX: {
-            value: -5.85,
-            min: -10,
-            max: 10,
-            onChange: (value) => {
-                if (ref.current) ref.current.position.x = value
-            }
-        },
-        PosterY: {
-            value: 3.21,
-            min: -10,
-            max: 10,
-            onChange: (value) => {
-                if (ref.current) ref.current.position.y = value
-            }
-        },
-        PosterZ: {
-            value:-2.1,
-            min: -10,
-            max: 10,
-            onChange: (value) => {
-                if (ref.current) ref.current.position.z = value
-            }
-        }
-    })
-
     return (
-        <mesh ref={ref} rotation={[0, Math.PI / 2, 0]} scale={1}>
-            <planeGeometry args={[1.2, 1.9]} />
+        <mesh ref={ref} rotation={[0, Math.PI / 2, 0]} scale={1} position={[-5.85, 3.23, -2.11]}>
+            <planeGeometry args={[1.27, 1.9]} />
             <meshBasicMaterial map={texture} />
         </mesh>
     )
