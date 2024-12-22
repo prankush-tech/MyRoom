@@ -13,7 +13,10 @@ import { Canvas } from "@react-three/fiber";
 // const demoSheet = getProject("Demo Project").sheet("Demo Sheet");
 
 const Three = () => {
-  const [maxDistance, setMaxDistance] = useState(window.innerWidth < 768 ? 70 : 90);
+
+const [maxDistance, setMaxDistance] = useState(
+    typeof window !== "undefined" && window.innerWidth < 768 ? 120 : 70 
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,8 +46,8 @@ const Three = () => {
         enableDamping={true}
         dampingFactor={0.04}
         makeDefault={true}
-        maxDistance={maxDistance}
-        minDistance={20}
+        // maxDistance={maxDistance}
+        // minDistance={20}
       />
       {/* <pointLight position={[10, 10, 10]} intensity={10} color={"red"} /> */}
       {/* <axesHelper args={[100]} /> */}
