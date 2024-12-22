@@ -22,7 +22,7 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
 
   // Load texture
   const texture = new THREE.TextureLoader().load(
-    "/Neutral_Bake1_CyclesBake_COMBINED.jpg"
+    "/Neutral_Bake1_CyclesBake_COMBINED2.jpg"
   );
   texture.flipY = false;
 

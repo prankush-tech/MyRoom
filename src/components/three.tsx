@@ -9,6 +9,8 @@ import { editable as e, SheetProvider } from "@theatre/r3f";
 import { OrbitControls } from "@react-three/drei";
 import { Model } from "./Room/Room";
 import { Canvas } from "@react-three/fiber";
+import Video from "./Room/Video";
+import Poster from "./Room/Poster";
 
 // const demoSheet = getProject("Demo Project").sheet("Demo Sheet");
 
@@ -55,6 +57,8 @@ const [maxDistance, setMaxDistance] = useState(
       {/* <Plane position={[0, 0, 0]}  /> */}
       {/* <SheetProvider sheet={demoSheet}>
       </SheetProvider> */}
+      <Video/>
+      <Poster/>
       <Model />
     </Canvas>
   );
