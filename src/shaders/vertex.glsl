@@ -1,15 +1,14 @@
-export default `
+// eslint-disable-next-line import/no-anonymous-default-export
+
 varying vec2 vUv;
-varying vec3 vNormal;
-uniform float uTime;
 
-
-void main() {
+void main()
+{
+    vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+    vec4 viewPosition = viewMatrix * modelPosition;
+    vec4 projectionPosition = projectionMatrix * viewPosition;
+    gl_Position = projectionPosition;
 
     vUv = uv;
-    vNormal = normal;
-    vec3 newPosition = position;
-    newPosition.z = 0.1*sin(newPosition.x*15. + uTime);
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+    
 }
-`;
