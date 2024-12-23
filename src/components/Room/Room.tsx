@@ -1,28 +1,55 @@
 import * as THREE from "three";
-import React, { useMemo, useRef } from "react";
-import { useGLTF } from "@react-three/drei";
+import React, { useEffect, useMemo, useRef } from "react";
+import { useAnimations, useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import vertexShader from "../../shaders/vertex.glsl";
 import fragmentShader from "../../shaders/fragment.glsl";
-import { useFrame } from "@react-three/fiber";
 import { useControls } from "leva";
+
+type ActionName = 'ChairAction'
+
+interface GLTFAction extends THREE.AnimationClip {
+  name: ActionName
+}
+
 
 type GLTFResult = GLTF & {
   nodes: {
-    Chair: THREE.Mesh;
-    keyBoard_Buttons: THREE.Mesh;
-  };
-  materials: {};
-};
+    Chair: THREE.Mesh
+    CHairBottom: THREE.Mesh
+    keyBoard_Buttons: THREE.Mesh
+  }
+  materials: {}
+  animations: GLTFAction[]
+}
 
 type UniformProps = {
   uBakedDayTexture: { value: THREE.Texture };
   uLightMapTexture: { value: THREE.Texture };
+
   uLightDeskStrength: { value: number };
+  uLightDeskColor: { value: THREE.Color };
+
+  uTvScreenColor : { value: THREE.Color };
+  uTvScreenStrength: { value: number };
+
+  uInverterColor : { value: THREE.Color };
+  uInverterStrength: { value: number };
+
 };
 
 export function Model(props: JSX.IntrinsicElements["group"]) {
-  const { nodes } = useGLTF("/room-transformed.glb") as GLTFResult;
+  
+    const group = useRef<THREE.Group>(null);
+    const { nodes, materials, animations } = useGLTF('/room-transformed.glb') as GLTFResult
+    const { actions } = useAnimations(animations, group)
+
+
+  const pcBgColor = useMemo(() => new THREE.Color("#ff115e"), []);
+  const tvScreenColor = useMemo(() => new THREE.Color("#37ccf4"), []);
+  const inverterColor = useMemo(() => new THREE.Color("#2cfc03"), []);
+
+
 
   const texture = useMemo(() => {
     const tex = new THREE.TextureLoader().load(
@@ -34,7 +61,15 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
 
   const textureNight = useMemo(() => {
     const tex = new THREE.TextureLoader().load(
-      "LightMap_Bake1_CyclesBake_COMBINED.jpg"
+      "newLightMap_Bake1_CyclesBake_COMBINED.jpg"
+    );
+    tex.flipY = false;
+    return tex;
+  }, []);
+
+  const testTexture = useMemo(() => {
+    const tex = new THREE.TextureLoader().load(
+      "newLightMap_Bake1_CyclesBake_COMBINED.jpg"
     );
     tex.flipY = false;
     return tex;
@@ -44,40 +79,115 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
     () => ({
       uBakedDayTexture: { value: texture },
       uLightMapTexture: { value: textureNight },
-      uLightDeskStrength: { value: 0.2 },
+
+      uLightDeskStrength: { value: 0 },
+      uLightDeskColor: { value: pcBgColor },
+
+      uTvScreenColor: { value: tvScreenColor },
+      uTvScreenStrength: { value: 0 },
+
+      uInverterColor: { value: inverterColor },
+      uInverterStrength: { value: 0 },
     }),
-    [texture, textureNight]
+    [texture, textureNight, pcBgColor, tvScreenColor, inverterColor]
   );
 
-  const { SetupColorPower } = useControls("SetupColorPower", {
+  const { SetupColorPower,TvScreenPower,LaptopScreenPower } = useControls("SetupColorPower", {
+    pcBgColor: {
+      value: "#ff115e",
+      label: "PC Background Color",
+      onChange: (value: string) => {
+        pcBgColor.set(value);
+        uniforms.uLightDeskColor.value = pcBgColor;
+        uniforms.uTvScreenColor.value = tvScreenColor;
+        uniforms.uInverterColor.value = inverterColor;
+      },
+    },
     SetupColorPower: {
-      value: 0.2,
+      value: 1,
       min: 0,
       max: 3,
     },
+   
+    uTvScreenColor: {
+      value: "#37ccf4",
+      label: "Inverter Color",
+      onChange: (value: string) => {
+        tvScreenColor.set(value);
+        uniforms.uLightDeskColor.value = pcBgColor;
+        uniforms.uTvScreenColor.value = tvScreenColor;
+        uniforms.uInverterColor.value = inverterColor;
+      },
+    },
+    TvScreenPower: {
+      value: 1,
+      min: 0,
+      max: 3,
+    },
+    uInverterColor: {
+      value: "#2cfc03",
+      label: "Screen Color",
+      onChange: (value: string) => {
+        inverterColor.set(value);
+        uniforms.uLightDeskColor.value = pcBgColor;
+        uniforms.uTvScreenColor.value = tvScreenColor;
+        uniforms.uInverterColor.value = inverterColor;
+      },
+    },
+    LaptopScreenPower: {
+      value: 1,
+      min: 0,
+      max: 3,
+    },
+
   });
 
   uniforms.uLightDeskStrength.value = SetupColorPower;
+  uniforms.uTvScreenStrength.value = TvScreenPower;
+  uniforms.uInverterStrength.value = LaptopScreenPower;
+
+
+
+
+  useEffect(() => {
+    if (actions.ChairAction) {
+      actions.ChairAction.play();
+      actions.ChairAction.setLoop(THREE.LoopRepeat, Infinity); 
+    }
+  }, [actions]);
+
 
 
   return (
     <group {...props} dispose={null} position={[0, -3.3, 0]}>
-      <mesh geometry={nodes.Chair.geometry} position={[0, 0.019, 0]}>
-        <shaderMaterial
+      
+
+      <group name="Scene" ref={group}>
+        <mesh name="Chair" geometry={nodes.Chair.geometry} material={nodes.Chair.material} position={[-0.896, 2.356, 6.248]} >
+          <shaderMaterial
           side={THREE.DoubleSide}
           vertexShader={vertexShader}
           fragmentShader={fragmentShader}
           uniforms={uniforms}
         />
-      </mesh>
-      <mesh geometry={nodes.keyBoard_Buttons.geometry}>
-        <shaderMaterial
+        </mesh>
+        <mesh name="CHairBottom" geometry={nodes.CHairBottom.geometry} material={nodes.CHairBottom.material} position={[0, 0.019, 0]} >
+          <shaderMaterial
           side={THREE.DoubleSide}
           vertexShader={vertexShader}
           fragmentShader={fragmentShader}
           uniforms={uniforms}
         />
-      </mesh>
+        </mesh>
+        <mesh name="keyBoard_Buttons" geometry={nodes.keyBoard_Buttons.geometry} material={nodes.keyBoard_Buttons.material} >
+          <shaderMaterial
+          side={THREE.DoubleSide}
+          vertexShader={vertexShader}
+          fragmentShader={fragmentShader}
+          uniforms={uniforms}
+        />
+        </mesh>
+      </group>
     </group>
   );
 }

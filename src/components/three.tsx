@@ -28,8 +28,8 @@ const [maxDistance, setMaxDistance] = useState(
   return (
     <Canvas
       camera={{
-        position: [50, 23, 20],
-        fov: 19,
+        position: [40, 20, 28],
+        fov: 22,
       }}
     >
       <color attach="background" args={["#000000"]} />
@@ -46,7 +46,7 @@ const [maxDistance, setMaxDistance] = useState(
       />
       {/* <pointLight position={[10, 10, 10]} intensity={10} color={"red"} /> */}
       {/* <axesHelper args={[100]} /> */}
-      <ambientLight intensity={Math.PI * 1.5} />
+      {/* <ambientLight intensity={Math.PI} /> */}
 
       <Model />
       <VideoLaptop/>
