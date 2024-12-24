@@ -1,20 +1,18 @@
-'use client'
+"use client";
 
 import React, { useState, useEffect } from "react";
-import { editable as e, SheetProvider } from "@theatre/r3f";
 import { OrbitControls } from "@react-three/drei";
-import { Model } from "./Room/Room";
 import { Canvas } from "@react-three/fiber";
+import { Model } from "./Room/Room";
 import VideoTV from "./Room/VideoTV";
 import Poster from "./Room/Poster";
 import VideoLaptop from "./Room/VideoLaptop";
 
-
 const Three = () => {
-
-const [maxDistance, setMaxDistance] = useState(
-    typeof window !== "undefined" && window.innerWidth < 768 ? 120 : 70 
+  const [maxDistance, setMaxDistance] = useState(
+    typeof window !== "undefined" && window.innerWidth < 768 ? 120 : 70
   );
+  const [isModelLoaded, setIsModelLoaded] = useState(false); // Track if the model is loaded
 
   useEffect(() => {
     const handleResize = () => {
@@ -29,7 +27,7 @@ const [maxDistance, setMaxDistance] = useState(
     <Canvas
       camera={{
         position: [40, 20, 28],
-        fov: 22,
+        fov: 20,
       }}
     >
       <color attach="background" args={["#000000"]} />
@@ -44,15 +42,22 @@ const [maxDistance, setMaxDistance] = useState(
         maxDistance={maxDistance}
         minDistance={25}
       />
-      {/* <pointLight position={[10, 10, 10]} intensity={10} color={"red"} /> */}
-      {/* <axesHelper args={[100]} /> */}
-      {/* <ambientLight intensity={Math.PI} /> */}
+      <ambientLight intensity={Math.PI} />
 
-      <Model />
-      <VideoTV/>
-      <VideoLaptop/>
-      <Poster/>
-      
+      {/* Track when the Model is loaded */}
+      <Model
+        onLoad={() => {
+          setIsModelLoaded(true);
+        }}
+      />
+
+      {isModelLoaded && (
+        <>
+          <VideoTV />
+          <VideoLaptop />
+          <Poster />
+        </>
+      )}
     </Canvas>
   );
 };
