@@ -25,10 +25,12 @@ const Three = () => {
 
   return (
     <Canvas
+    dpr={[1, 4]}
       camera={{
         position: [40, 20, 28],
         fov: 20,
-      }}
+      }
+    }
     >
       <color attach="background" args={["#000000"]} />
       <OrbitControls
@@ -44,13 +46,11 @@ const Three = () => {
       />
       <ambientLight intensity={Math.PI} />
 
-      {/* Track when the Model is loaded */}
       <Model
         onLoad={() => {
           setIsModelLoaded(true);
         }}
       />
-
       {isModelLoaded && (
         <>
           <VideoTV />

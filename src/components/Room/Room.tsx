@@ -53,7 +53,7 @@ export function Model({ onLoad, ...props }: ModelProps) {
 
   const DayTexture = useMemo(() => {
     const tex = new THREE.TextureLoader().load(
-      "/Neutral_Bake1_CyclesBake_COMBINED2.jpg"
+      "/Day texture_Bake1_CyclesBake_COMBINED.jpg"
     );
     tex.flipY = false;
     return tex;
@@ -124,7 +124,7 @@ export function Model({ onLoad, ...props }: ModelProps) {
       },
     },
     TvScreenPower: {
-      value: 1.5,
+      value: 0.9,
       min: 0,
       max: 3,
     },
