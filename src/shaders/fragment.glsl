@@ -1,10 +1,32 @@
 
 #define PI 3.14159265359
 
-// #pragma glslify: blend = require(glsl-blend/add)
+#pragma glslify: blend = require(glsl-blend/add)
+// #pragma glslify: blend = require(glsl-blend/average)
+// #pragma glslify: blend = require(glsl-blend/color-burn)
+// #pragma glslify: blend = require(glsl-blend/color-dodge)
+// #pragma glslify: blend = require(glsl-blend/darken)
+// #pragma glslify: blend = require(glsl-blend/difference)
+// #pragma glslify: blend = require(glsl-blend/exclusion)
+// #pragma glslify: blend = require(glsl-blend/glow)
+// #pragma glslify: blend = require(glsl-blend/hard-light)
+// #pragma glslify: blend = require(glsl-blend/hard-mix)
 // #pragma glslify: blend = require(glsl-blend/lighten)
+// #pragma glslify: blend = require(glsl-blend/linear-burn)
+// #pragma glslify: blend = require(glsl-blend/linear-dodge)
+// #pragma glslify: blend = require(glsl-blend/linear-light)
+// #pragma glslify: blend = require(glsl-blend/multiply)
+// #pragma glslify: blend = require(glsl-blend/negation)
 // #pragma glslify: blend = require(glsl-blend/normal)
-#pragma glslify: blend = require(glsl-blend/screen)
+// #pragma glslify: blend = require(glsl-blend/overlay)
+// #pragma glslify: blend = require(glsl-blend/phoenix)
+// #pragma glslify: blend = require(glsl-blend/pin-light)
+// #pragma glslify: blend = require(glsl-blend/reflect)
+// #pragma glslify: blend = require(glsl-blend/screen)
+// #pragma glslify: blend = require(glsl-blend/soft-light)
+// #pragma glslify: blend = require(glsl-blend/subtract)
+// #pragma glslify: blend = require(glsl-blend/vivid-light)
+// #pragma glslify: blend = require(glsl-blend/glow)
 
 
 uniform vec2 uResolution;

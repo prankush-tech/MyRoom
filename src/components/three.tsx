@@ -49,8 +49,8 @@ const [maxDistance, setMaxDistance] = useState(
       {/* <ambientLight intensity={Math.PI} /> */}
 
       <Model />
-      <VideoLaptop/>
       <VideoTV/>
+      <VideoLaptop/>
       <Poster/>
       
     </Canvas>
