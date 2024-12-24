@@ -41,8 +41,8 @@ const Three = () => {
         enableDamping={true}
         dampingFactor={0.04}
         makeDefault={true}
-        // maxDistance={maxDistance}
-        // minDistance={25}
+        maxDistance={maxDistance}
+        minDistance={25}
       />
       <ambientLight intensity={Math.PI} />
 
