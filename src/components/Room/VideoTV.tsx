@@ -41,7 +41,7 @@ const VideoTV = () => {
       ref={ref}
       rotation={[0, Math.PI / 2, 0]}
       scale={1.78}
-      position={[-5.32, 1.1, 5.11]}
+      position={[-5.32, 0.6, 5.11]}
     >
       <planeGeometry args={[2, 1.1]} />
       <meshBasicMaterial map={selectedVideoTexture} />

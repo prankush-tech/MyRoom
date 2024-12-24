@@ -28,8 +28,8 @@ const Three = () => {
     <Canvas
     dpr={[1, 4]}
       camera={{
-        position: [40, 20, 28],
-        fov: 20,
+        position: [50, 25, 45],
+        fov: 16,
       }
     }
     >
