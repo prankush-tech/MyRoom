@@ -5,6 +5,7 @@ import { GLTF } from "three-stdlib";
 import vertexShader from "../../shaders/vertex.glsl";
 import fragmentShader from "../../shaders/fragment.glsl";
 import { useControls } from "leva";
+import usePosterIntensity from "@/store/PosterIntensity";
 
 type ActionName = "ChairAction";
 
@@ -37,7 +38,7 @@ type UniformProps = {
 };
 
 type ModelProps = JSX.IntrinsicElements["group"] & {
-  onLoad?: () => void; // Add an optional onLoad callback
+  onLoad?: () => void; 
 };
 
 export function Model({ onLoad, ...props }: ModelProps) {
@@ -92,9 +93,11 @@ export function Model({ onLoad, ...props }: ModelProps) {
     [lightMap, pcBgColor, tvScreenColor, DayTexture, NightTexture]
   );
 
-  const { NightStrength } = useControls("DAY or NIGHT", {
-    NightStrength: {
-      value: 1,
+  
+
+  const { DayStrength } = useControls("DAY or NIGHT", {
+    DayStrength: {
+      value: 0,
       min: 0,
       max: 1,
     },
@@ -132,15 +135,19 @@ export function Model({ onLoad, ...props }: ModelProps) {
 
   uniforms.uLightDeskStrength.value = SetupColorPower;
   uniforms.uTvScreenStrength.value = TvScreenPower;
-  uniforms.uNightStrength.value = NightStrength;
+  uniforms.uNightStrength.value = DayStrength;
+  
+  const setStrength  = usePosterIntensity((state) => state.setStrength);
 
+  setStrength(DayStrength);
+  
   useEffect(() => {
     if (actions.ChairAction) {
       actions.ChairAction.play();
       actions.ChairAction.setLoop(THREE.LoopRepeat, Infinity);
     }
     if (onLoad) {
-      onLoad(); // Notify parent that the model has loaded
+      onLoad(); 
     }
   }, [actions, onLoad]);
 

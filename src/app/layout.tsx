@@ -5,6 +5,7 @@ import Three from "@/components/three";
 import SmoothScrolling from "@/components/SmoothScrolling";
 import { TransitionProviders } from "@/components/Transition";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { OrbitControls } from "@react-three/drei";
+import React, { useState, useEffect, Suspense } from "react";
+import { Loader, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Model } from "./Room/Room";
 import VideoTV from "./Room/VideoTV";
@@ -24,6 +24,7 @@ const Three = () => {
   }, []);
 
   return (
+    <>
     <Canvas
     dpr={[1, 4]}
       camera={{
@@ -32,6 +33,8 @@ const Three = () => {
       }
     }
     >
+      <Suspense >
+
       <color attach="background" args={["#000000"]} />
       <OrbitControls
         minAzimuthAngle={0}
@@ -43,14 +46,14 @@ const Three = () => {
         makeDefault={true}
         maxDistance={maxDistance}
         minDistance={25}
-      />
+        />
       <ambientLight intensity={Math.PI} />
 
       <Model
         onLoad={() => {
           setIsModelLoaded(true);
         }}
-      />
+        />
       {isModelLoaded && (
         <>
           <VideoTV />
@@ -58,7 +61,10 @@ const Three = () => {
           <Poster />
         </>
       )}
+      </Suspense>
     </Canvas>
+    <Loader />
+    </>
   );
 };
 

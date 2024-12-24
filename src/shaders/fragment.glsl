@@ -58,7 +58,7 @@ void main() {
   vec3 nightColor = texture2D(uNightTexture, vUv).rgb;
 
 
-  vec3 bakedColor = mix(bakedDayColor, nightColor, uNightStrength);
+  vec3 bakedColor = mix(nightColor,bakedDayColor, uNightStrength);
 
 
 
