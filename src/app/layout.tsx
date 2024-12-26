@@ -4,6 +4,9 @@ import "./globals.css";
 import Three from "@/components/three";
 import SmoothScrolling from "@/components/SmoothScrolling";
 import { TransitionProviders } from "@/components/Transition";
+import Controls from "@/components/Controls";
+
+
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,8 +29,12 @@ export default function RootLayout({
           {children}
         </TransitionProviders>
           </SmoothScrolling>
-        <div className="fixed top-0 h-full w-full -z-10">
-        <Three />
+        <div className="top-0 flex sm:flex-row flex-col h-full w-full">
+
+          <div className="fixed h-[60vh] sm:h-[100vh] w-[100vw] z-10 ">
+            <Three />
+          </div>
+        <Controls />
         </div>
       </body>
     </html>

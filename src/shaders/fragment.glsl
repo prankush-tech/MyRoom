@@ -35,6 +35,7 @@ uniform float uTime;
 uniform sampler2D uBakedDayTexture;
 uniform sampler2D uLightMapTexture;
 uniform sampler2D uNightTexture;
+uniform sampler2D uTexture;
 
 
 uniform float uLightDeskStrength;
@@ -49,6 +50,7 @@ uniform vec3 uInverterColor;
 varying vec2 vUv;
 
 uniform float uNightStrength;
+uniform float uStrength;
 
 void main() {
 
@@ -56,11 +58,8 @@ void main() {
   vec3 bakedDayColor = texture2D(uBakedDayTexture, vUv).rgb;
   vec3 lightMapColor = texture2D(uLightMapTexture, vUv).rgb;
   vec3 nightColor = texture2D(uNightTexture, vUv).rgb;
-
-
-  vec3 bakedColor = mix(nightColor,bakedDayColor, uNightStrength);
-
-
+  vec3 uTextureWhite = texture2D(uTexture, vUv).rgb;
+  vec3 bakedColor = mix(mix(nightColor,bakedDayColor, uNightStrength),uTextureWhite, uStrength);
 
   float lightStrength = lightMapColor.r * uLightDeskStrength;
   bakedColor = blend(bakedColor, uLightDeskColor, lightStrength);
@@ -72,5 +71,8 @@ void main() {
   bakedColor = blend(bakedColor, uTvScreenColor, tvlightStrength);
 
   gl_FragColor = vec4(bakedColor,1.0);
+
+    // #include <tonemapping_fragment>
+    // #include <colorspace_fragment>
   
 }
