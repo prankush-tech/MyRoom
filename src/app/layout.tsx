@@ -31,7 +31,7 @@ export default function RootLayout({
           </SmoothScrolling>
         <div className="top-0 flex sm:flex-row flex-col h-full w-full">
 
-          <div className="fixed h-[60vh] sm:h-[100vh] w-[100vw] z-10 ">
+          <div className="fixed h-[50vh] sm:h-[100vh] w-[100vw] z-10 ">
             <Three />
           </div>
         <Controls />

@@ -71,6 +71,7 @@ const Three = () => {
 
           <color attach="background" args={["#000000"]} />
           {/* <ambientLight intensity={Math.PI} /> */}
+          {/* <axesHelper args={[100]}/> */}
 
           {/* {Enable && 
           

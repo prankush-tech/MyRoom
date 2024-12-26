@@ -37,7 +37,7 @@ const VideoLaptop = () => {
     <mesh
       ref={ref}
       rotation={[0.00, 2.32, 0.00]}
-      position={[-5.05, -0.05, 7.85]}
+      position={[-6.05, -0.05, 7.85]}
       scale={0.66}
     >
       <planeGeometry args={[2, 1.1]} />

@@ -184,7 +184,7 @@ export function Model({ onLoad, ...props }: ModelProps) {
   }, [actions, onLoad]);
 
   return (
-    <group dispose={null} position={[0, -3.8, 0]}>
+    <group dispose={null} position={[-1, -3.8, 0]}>
       <group name="Scene" ref={group}>
         <mesh
           name="Chair"
