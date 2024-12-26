@@ -30,7 +30,7 @@ const Three = () => {
 
   useEffect(() => {
     if (maxDistance === 90) {
-      setCameraFOV(25);
+      setCameraFOV(20);
     }
   }, [maxDistance]);
 
