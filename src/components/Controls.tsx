@@ -26,8 +26,8 @@ const Controls = () => {
   }, []);
 
   return (
-    <div className='sm:w-0 sm:h-0 w-full h-[100%] mt-[60vh] sm:mt-0 bg-black -z-0 sm:z-[20]'>
-      <Leva fill={fill} flat={fill} titleBar={{drag:false,title:"ROOM EDITOR"}} />
+    <div className='sm:w-0 sm:h-0 w-full h-[100%] mt-[60vh] sm:mt-0 bg-black -z-0 sm:z-[20] py-4 px-2'>
+      <Leva fill={fill} flat={false} titleBar={{drag:false,title:"ROOM EDITOR"}} />
     </div>
   );
 };
